@@ -31,6 +31,30 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 def score(dice)
   # You need to write this method
+  score = 0
+  return score if dice.empty? || dice.length > 5
+  
+  numbers = {1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0, 6 => 0}
+  
+  dice.each do |elem| 
+    numbers[elem] += 1
+  end
+
+  max_pair = numbers.max_by{|k,v| v}
+
+  if max_pair[1] >= 3
+    case max_pair[0]
+    when 1
+      score = 1000 + (max_pair[1] - 3) * 100 + numbers[5]*50
+    when 5
+      score = 500 + (max_pair[1] - 3) * 50 + numbers[1]*100
+    else
+      score = max_pair[0] * 100 + numbers[5]*50 + numbers[1]*100
+    end    
+  else
+    score = numbers[5]*50 + numbers[1]*100
+  end
+  score
 end
 
 class AboutScoringProject < Neo::Koan

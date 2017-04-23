@@ -15,6 +15,18 @@
 #
 def triangle(a, b, c)
   # WRITE THIS CODE
+  arr = [a,b,c]
+  
+  raise TriangleError unless a + b > c && a + c > b && b + c > a
+
+  case arr.uniq.length
+      when 1 
+      	:equilateral 
+      when 2 
+      	:isosceles
+      when 3 
+      	:scalene
+    end
 end
 
 # Error class used in part 2.  No need to change this code.
